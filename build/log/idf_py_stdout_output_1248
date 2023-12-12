@@ -1,0 +1,45 @@
+[1/11] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D C:\Users\taaml\Documents\ESP32_CODE\spi_ade7753\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
+[2/9] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/spi.c.obj
+[3/9] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c: In function 'app_main':
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:40:21: warning: cast to pointer from integer of different size [-Wint-to-pointer-cast]
+   40 |         .tx_data = {(uint8_t*) byte, (uint8_t*)&value},
+      |                     ^
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:40:21: warning: initialization of 'unsigned char' from 'uint8_t *' {aka 'unsigned char *'} makes integer from pointer without a cast [-Wint-conversion]
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:40:21: note: (near initialization for 'spi_transaction.<anonymous>.tx_data[0]')
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:40:38: warning: initialization of 'unsigned char' from 'uint8_t *' {aka 'unsigned char *'} makes integer from pointer without a cast [-Wint-conversion]
+   40 |         .tx_data = {(uint8_t*) byte, (uint8_t*)&value},
+      |                                      ^
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:40:38: note: (near initialization for 'spi_transaction.<anonymous>.tx_data[1]')
+At top level:
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:22:20: warning: 'TAG1' defined but not used [-Wunused-variable]
+   22 | static const char *TAG1 = "main";
+      |                    ^~~~
+In file included from C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:21:
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/ade_new.h:14:20: warning: 'TAG' defined but not used [-Wunused-variable]
+   14 | static const char *TAG = "ADE7753";
+      |                    ^~~
+[4/9] Linking C static library esp-idf\main\libmain.a
+[5/9] Generating ld/sections.ld
+[6/9] Linking CXX executable main.elf
+[7/9] Generating binary image from built executable
+esptool.py v4.6.2
+Creating esp32 image...
+Merged 2 ELF sections
+Successfully created esp32 image.
+Generated C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/main.bin
+[8/9] cmd.exe /C "cd /D C:\Users\taaml\Documents\ESP32_CODE\spi_ade7753\build\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/partition_table/partition-table.bin C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/main.bin"
+main.bin binary size 0x30140 bytes. Smallest app partition is 0x100000 bytes. 0xcfec0 bytes (81%) free.
+[8/9] cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.0.1\components\esptool_py && C:\Espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.0.1 -D SERIAL_TOOL=C:/Espressif/python_env/idf5.0_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.0.1/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build -P C:/Espressif/frameworks/esp-idf-v5.0.1/components/esptool_py/run_serial_tool.cmake"
+esptool esp32 -p COM4 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 main.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.6.2
+Serial port COM4
+Connecting......................................
+
+A fatal error occurred: Failed to connect to ESP32: No serial data received.
+For troubleshooting steps visit: https://docs.espressif.com/projects/esptool/en/latest/troubleshooting.html
+FAILED: CMakeFiles/flash C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/CMakeFiles/flash 
+cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.0.1\components\esptool_py && C:\Espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.0.1 -D SERIAL_TOOL=C:/Espressif/python_env/idf5.0_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.0.1/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build -P C:/Espressif/frameworks/esp-idf-v5.0.1/components/esptool_py/run_serial_tool.cmake"
+ninja: build stopped: subcommand failed.

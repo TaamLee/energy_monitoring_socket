@@ -1,0 +1,11 @@
+{
+  "C_Cpp.intelliSenseEngine": "default",
+  "files.associations": {
+    "spi_common.h": "c",
+    "array": "c",
+    "string": "c",
+    "string_view": "c",
+    "oled_1306.h": "c"
+  },
+  "idf.adapterTargetName": "esp32"
+}
