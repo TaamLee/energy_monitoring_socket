@@ -1,0 +1,27 @@
+[1/10] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D C:\Users\taaml\Documents\ESP32_CODE\spi_ade7753\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
+[2/8] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:36:20: warning: 'TAG2' defined but not used [-Wunused-variable]
+   36 | static const char *TAG2 = "main";
+      |                    ^~~~
+In file included from C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:24:
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/mqtt.h:4:20: warning: 'TAG1' defined but not used [-Wunused-variable]
+    4 | static const char *TAG1 = "MQTT_EXAMPLE";
+      |                    ^~~~
+In file included from C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:22:
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/ade_new.h:14:20: warning: 'TAG' defined but not used [-Wunused-variable]
+   14 | static const char *TAG = "ADE7753";
+      |                    ^~~
+[3/8] Linking C static library esp-idf\main\libmain.a
+[4/8] Generating ld/sections.ld
+[5/8] Linking CXX executable main.elf
+FAILED: main.elf 
+cmd.exe /C "cd . && C:\Espressif\tools\xtensa-esp32-elf\esp-2022r1-11.2.0\xtensa-esp32-elf\bin\xtensa-esp32-elf-g++.exe -mlongcalls -Wno-frame-address  @CMakeFiles\main.elf.rsp -o main.elf  && cd ."
+c:/espressif/tools/xtensa-esp32-elf/esp-2022r1-11.2.0/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/11.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: esp-idf/main/libmain.a(main.c.obj):(.literal.send_to_cloud_task+0x18): undefined reference to `Send_data_to_cloud'
+c:/espressif/tools/xtensa-esp32-elf/esp-2022r1-11.2.0/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/11.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: esp-idf/main/libmain.a(main.c.obj): in function `send_to_cloud_task':
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:134: undefined reference to `Send_data_to_cloud'
+c:/espressif/tools/xtensa-esp32-elf/esp-2022r1-11.2.0/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/11.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:139: undefined reference to `Send_data_to_cloud'
+c:/espressif/tools/xtensa-esp32-elf/esp-2022r1-11.2.0/xtensa-esp32-elf/bin/../lib/gcc/xtensa-esp32-elf/11.2.0/../../../../xtensa-esp32-elf/bin/ld.exe: C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:144: undefined reference to `Send_data_to_cloud'
+collect2.exe: error: ld returned 1 exit status
+ninja: build stopped: subcommand failed.

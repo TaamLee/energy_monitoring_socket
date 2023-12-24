@@ -1,0 +1,101 @@
+[1/10] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D C:\Users\taaml\Documents\ESP32_CODE\spi_ade7753\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
+[2/8] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c: In function 'send_to_cloud_task':
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:132:8: warning: unused variable 'data_string' [-Wunused-variable]
+  132 |   char data_string[15];
+      |        ^~~~~~~~~~~
+At top level:
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:36:20: warning: 'TAG2' defined but not used [-Wunused-variable]
+   36 | static const char *TAG2 = "main";
+      |                    ^~~~
+In file included from C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:24:
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/mqtt.h:4:20: warning: 'TAG1' defined but not used [-Wunused-variable]
+    4 | static const char *TAG1 = "MQTT_EXAMPLE";
+      |                    ^~~~
+In file included from C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:22:
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/ade_new.h:14:20: warning: 'TAG' defined but not used [-Wunused-variable]
+   14 | static const char *TAG = "ADE7753";
+      |                    ^~~
+[3/8] Linking C static library esp-idf\main\libmain.a
+[4/8] Generating ld/sections.ld
+[5/8] Linking CXX executable main.elf
+[6/8] Generating binary image from built executable
+esptool.py v4.6.2
+Creating esp32 image...
+Merged 25 ELF sections
+Successfully created esp32 image.
+Generated C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/main.bin
+[7/8] cmd.exe /C "cd /D C:\Users\taaml\Documents\ESP32_CODE\spi_ade7753\build\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/partition_table/partition-table.bin C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/main.bin"
+main.bin binary size 0xe3710 bytes. Smallest app partition is 0x100000 bytes. 0x1c8f0 bytes (11%) free.
+[7/8] cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.0.1\components\esptool_py && C:\Espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.0.1 -D SERIAL_TOOL=C:/Espressif/python_env/idf5.0_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.0.1/components/esptool_py/esptool/esptool.py;--chip;esp32 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build -P C:/Espressif/frameworks/esp-idf-v5.0.1/components/esptool_py/run_serial_tool.cmake"
+esptool esp32 -p COM4 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 40m --flash_size 2MB 0x1000 bootloader/bootloader.bin 0x10000 main.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.6.2
+Serial port COM4
+Connecting....
+Chip is ESP32-D0WDQ6 (revision v1.0)
+Features: WiFi, BT, Dual Core, 240MHz, VRef calibration in efuse, Coding Scheme None
+Crystal is 40MHz
+MAC: 58:bf:25:36:ec:b4
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00001000 to 0x00007fff...
+Flash will be erased from 0x00010000 to 0x000f3fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+Compressed 26384 bytes to 16453...
+Writing at 0x00001000... (50 %)
+Writing at 0x000076ad... (100 %)
+Wrote 26384 bytes (16453 compressed) at 0x00001000 in 0.9 seconds (effective 237.8 kbit/s)...
+Hash of data verified.
+Compressed 931600 bytes to 594036...
+Writing at 0x00010000... (2 %)
+Writing at 0x0001c7fa... (5 %)
+Writing at 0x00024653... (8 %)
+Writing at 0x00029dd0... (10 %)
+Writing at 0x000351f7... (13 %)
+Writing at 0x0003eae8... (16 %)
+Writing at 0x00044279... (18 %)
+Writing at 0x00049f2c... (21 %)
+Writing at 0x0004fbc7... (24 %)
+Writing at 0x00055621... (27 %)
+Writing at 0x0005b284... (29 %)
+Writing at 0x00060a15... (32 %)
+Writing at 0x0006664b... (35 %)
+Writing at 0x0006c9d0... (37 %)
+Writing at 0x000726e0... (40 %)
+Writing at 0x00077e7a... (43 %)
+Writing at 0x0007d061... (45 %)
+Writing at 0x00082521... (48 %)
+Writing at 0x0008783d... (51 %)
+Writing at 0x0008ced7... (54 %)
+Writing at 0x000925d3... (56 %)
+Writing at 0x0009817d... (59 %)
+Writing at 0x0009dd46... (62 %)
+Writing at 0x000a33ea... (64 %)
+Writing at 0x000a8dbf... (67 %)
+Writing at 0x000ae571... (70 %)
+Writing at 0x000b3d32... (72 %)
+Writing at 0x000b969e... (75 %)
+Writing at 0x000bee46... (78 %)
+Writing at 0x000c49ad... (81 %)
+Writing at 0x000ca4e4... (83 %)
+Writing at 0x000d30ce... (86 %)
+Writing at 0x000db464... (89 %)
+Writing at 0x000e137b... (91 %)
+Writing at 0x000e6cc8... (94 %)
+Writing at 0x000ecb11... (97 %)
+Writing at 0x000f1dcb... (100 %)
+Wrote 931600 bytes (594036 compressed) at 0x00010000 in 13.8 seconds (effective 539.2 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.1 seconds (effective 344.2 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
