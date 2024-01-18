@@ -5,7 +5,8 @@
     "array": "c",
     "string": "c",
     "string_view": "c",
-    "oled_1306.h": "c"
+    "oled_1306.h": "c",
+    "time.h": "c"
   },
   "idf.adapterTargetName": "esp32"
 }

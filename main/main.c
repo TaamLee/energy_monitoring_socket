@@ -7,6 +7,8 @@
 #include <arpa/inet.h>
 #include "lwip/opt.h"
 
+#include <time.h>
+#include <sys/time.h>
 
 #include "lwip/err.h"
 #include "lwip/sys.h"
@@ -23,11 +25,12 @@
 #include "wifi_conection.h"
 #include "mqtt.h"
 #include "oled_1306.h"
+#include "button.h"
+#include "ds3231.h"
+#include "sd_card.h"
 
-#define CONFIG_SDA_GPIO 21
-#define CONFIG_SCL_GPIO 22
-#define CONFIG_RESET_GPIO 33
 
+extern uint8_t wifi_connected;
 typedef enum{
   IRMS_VALUE = 0,
   VRMS_VALUE ,
@@ -50,6 +53,7 @@ nvs_handle_t my_handle;
 
 //i2c variables
 SSD1306_t dev;
+i2c_dev_t dev_rtc;
 
 
 void get_irms_task(void* parameters)
@@ -129,7 +133,6 @@ void get_energy_task(void* paragrams)
 void send_to_cloud_task(void* parameters)
 {
   Data_t data_dequeue;
-  char data_string[15];
   while(1){
     if (xQueueReceive(data_queue,&data_dequeue,0 ) == pdPASS)
     {
@@ -170,14 +173,33 @@ void display_task(void* parameters)
 void storing_energy_task(void* parameters)
 {
   while(1){
-        int err = nvs_set_i32(my_handle, "energy", at_power);
+        int32_t saved_at_power = (int32_t)at_power;
+        int err = nvs_set_i32(my_handle, "energy", saved_at_power);
         printf((err != ESP_OK) ? "Failed to save energy!\n" : "save_energy_done\n");
         vTaskDelay(60000/portTICK_PERIOD_MS);
   }
 }
+void data_logging_task(void* parameters)
+{
+  struct tm time_now = {0};
+  while(1){
+    //Todo
+    //ckeck wifi connection
+    if (wifi_connected == 0)
+    {
+      //2. get time and I,U,P
+        ds3231_get_time(&dev_rtc,&time_now);
+        printf("Logging data ...\n");
+      //3. logging to sd_card
+        //data_logger(irms,vrms,at_power,&time_now);
+        printf("%04d-%02d-%02d %02d:%02d:%02d  \n", time_now.tm_year , time_now.tm_mon + 1,
+        time_now.tm_mday, time_now.tm_hour, time_now.tm_min, time_now.tm_sec);
+    }
+    vTaskDelay(3000/portTICK_PERIOD_MS);
+  }
+}
 void init_oled (void)
 {
-  i2c_master_init(&dev, CONFIG_SDA_GPIO, CONFIG_SCL_GPIO, -1);
   ssd1306_init(&dev, 128, 64);
   ssd1306_clear_screen(&dev, false);
   ssd1306_contrast(&dev, 0xff);
@@ -205,9 +227,11 @@ void app_main(void)
   else{
     printf("open NVS successful!\n");
     //get actice power before power off
-    int err = nvs_get_i32(my_handle, "energy", &at_power);
+    int32_t get_at_power;
+    int err = nvs_get_i32(my_handle, "energy", &get_at_power);
     switch (err) {
     case ESP_OK:
+        at_power = (double)get_at_power;
         printf("Done\n");
         printf("energy = %lf\n", at_power);
         break;
@@ -225,21 +249,27 @@ void app_main(void)
   //create semaphore
   xsema_handle = xSemaphoreCreateBinary();
   xSemaphoreGive(xsema_handle);
-
-  //init wifi and smartconfig
-  initialise_wifi();
+  //init button
+  init_button();
+  //init sdcard
+  init_sdcard();
+  //init rtc ds3231
+  ds3231_init_desc(&dev_rtc, I2C_NUM_0, CONFIG_SDA_GPIO, CONFIG_SCL_GPIO);
   //init ade7753
   ade7753_init();
   //init oled
   init_oled();
+  //init wifi and smartconfig
+  initialise_wifi();
   //mqtt init
   mqtt_app_start();
 
-  xTaskCreatePinnedToCore( get_irms_task, "get_irms_task", 4*1024, NULL,4,NULL, 1 );
-  xTaskCreatePinnedToCore( get_vrms_task, "get_vrms_task", 4*1024, NULL,4,NULL, 1 );
-  xTaskCreatePinnedToCore( get_energy_task, "get_energy_task", 4*1024, NULL,4,NULL, 1 );
-  xTaskCreatePinnedToCore( send_to_cloud_task, "send_to_cloud_task", 5*1024, NULL,5,NULL, 0 );
+
+  xTaskCreatePinnedToCore( get_irms_task, "get_irms_task", 3*1024, NULL,4,NULL, 1 );
+  xTaskCreatePinnedToCore( get_vrms_task, "get_vrms_task", 3*1024, NULL,4,NULL, 1 );
+  xTaskCreatePinnedToCore( get_energy_task, "get_energy_task", 3*1024, NULL,4,NULL, 1 );
+  xTaskCreatePinnedToCore( send_to_cloud_task, "send_to_cloud_task", 3*1024, NULL,5,NULL, 0 );
   xTaskCreatePinnedToCore( display_task, "display_task", 4*1024, NULL,4,NULL, 1 );
-  xTaskCreatePinnedToCore( storing_energy_task, "display_task", 4*1024, NULL,4,NULL, 1 );
-  
+  xTaskCreatePinnedToCore( storing_energy_task, "storing_energy_task", 2*1024, NULL,4,NULL, 1 );
+  xTaskCreatePinnedToCore( data_logging_task, "data_logging_task",2*1024, NULL,3,NULL, 1 );
 }

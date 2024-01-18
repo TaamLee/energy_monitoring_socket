@@ -2,6 +2,10 @@
 
 #include "driver/i2c.h"
 
+
+#define CONFIG_SDA_GPIO 21
+#define CONFIG_SCL_GPIO 22
+#define CONFIG_RESET_GPIO 33
 /* Control byte for i2c
 Co : bit 8 : Continuation Bit 
  * 1 = no-continuation (only one byte to follow) 
@@ -128,8 +132,8 @@ void ssd1306_fadeout(SSD1306_t * dev);
 void ssd1306_dump(SSD1306_t dev);
 void ssd1306_dump_page(SSD1306_t * dev, int page, int seg);
 
-void i2c_master_init(SSD1306_t * dev, int16_t sda, int16_t scl, int16_t reset);
-void i2c_init(SSD1306_t * dev, int width, int height);
+//static void i2c_master_init(SSD1306_t * dev, int16_t sda, int16_t scl, int16_t reset);
+//static void i2c_init(SSD1306_t * dev, int width, int height);
 void i2c_display_image(SSD1306_t * dev, int page, int seg, uint8_t * images, int width);
 void i2c_contrast(SSD1306_t * dev, int contrast);
 void i2c_hardware_scroll(SSD1306_t * dev, ssd1306_scroll_type_t scroll);

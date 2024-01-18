@@ -1,0 +1,38 @@
+[1/9] Performing build step for 'bootloader'
+[1/1] cmd.exe /C "cd /D C:\Users\taaml\Documents\ESP32_CODE\spi_ade7753\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x1000 C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/bootloader/bootloader.bin"
+Bootloader binary size 0x6710 bytes. 0x8f0 bytes (8%) free.
+[2/7] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c: In function 'app_main':
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:230:48: warning: passing argument 3 of 'nvs_get_i32' from incompatible pointer type [-Wincompatible-pointer-types]
+  230 |     int err = nvs_get_i32(my_handle, "energy", &at_power);
+      |                                                ^~~~~~~~~
+      |                                                |
+      |                                                double *
+In file included from C:/Espressif/frameworks/esp-idf-v5.0.1/components/nvs_flash/include/nvs_flash.h:21,
+                 from C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:6:
+C:/Espressif/frameworks/esp-idf-v5.0.1/components/nvs_flash/include/nvs.h:375:71: note: expected 'int32_t *' {aka 'long int *'} but argument is of type 'double *'
+  375 | esp_err_t nvs_get_i32 (nvs_handle_t handle, const char* key, int32_t* out_value);
+      |                                                              ~~~~~~~~~^~~~~~~~~
+At top level:
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:39:20: warning: 'TAG2' defined but not used [-Wunused-variable]
+   39 | static const char *TAG2 = "main";
+      |                    ^~~~
+In file included from C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:26:
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/mqtt.h:4:20: warning: 'TAG1' defined but not used [-Wunused-variable]
+    4 | static const char *TAG1 = "MQTT_EXAMPLE";
+      |                    ^~~~
+In file included from C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/main.c:24:
+C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/main/ade_new.h:14:20: warning: 'TAG' defined but not used [-Wunused-variable]
+   14 | static const char *TAG = "ADE7753";
+      |                    ^~~
+[3/7] Linking C static library esp-idf\main\libmain.a
+[4/7] Generating ld/sections.ld
+[5/7] Linking CXX executable main.elf
+[6/7] Generating binary image from built executable
+esptool.py v4.6.2
+Creating esp32 image...
+Merged 25 ELF sections
+Successfully created esp32 image.
+Generated C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/main.bin
+[7/7] cmd.exe /C "cd /D C:\Users\taaml\Documents\ESP32_CODE\spi_ade7753\build\esp-idf\esptool_py && C:\Espressif\python_env\idf5.0_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.0.1/components/partition_table/check_sizes.py --offset 0x8000 partition --type app C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/partition_table/partition-table.bin C:/Users/taaml/Documents/ESP32_CODE/spi_ade7753/build/main.bin"
+main.bin binary size 0xf2c60 bytes. Smallest app partition is 0x100000 bytes. 0xd3a0 bytes (5%) free.

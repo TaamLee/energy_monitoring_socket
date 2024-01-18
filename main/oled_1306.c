@@ -17,7 +17,7 @@ typedef union out_column_t {
 	uint8_t  u8[4];
 } PACK8 out_column_t;
 
-void i2c_master_init(SSD1306_t * dev, int16_t sda, int16_t scl, int16_t reset)
+static void i2c_master_init(SSD1306_t * dev, int16_t sda, int16_t scl, int16_t reset)
 {
 	i2c_config_t i2c_config = {
 		.mode = I2C_MODE_MASTER,
@@ -41,7 +41,7 @@ void i2c_master_init(SSD1306_t * dev, int16_t sda, int16_t scl, int16_t reset)
 	dev->_address = I2CAddress;
 	dev->_flip = false;
 }
-void i2c_init(SSD1306_t * dev, int width, int height) {
+static void i2c_init(SSD1306_t * dev, int width, int height) {
 	dev->_width = width;
 	dev->_height = height;
 	dev->_pages = 8;
@@ -160,7 +160,7 @@ void i2c_display_image(SSD1306_t * dev, int page, int seg, uint8_t * images, int
 }
 void ssd1306_init(SSD1306_t * dev, int width, int height)
 {
-
+	i2c_master_init(dev, CONFIG_SDA_GPIO, CONFIG_SCL_GPIO, -1);
 	i2c_init(dev, width, height);
 	// Initialize internal buffer
 	for (int i=0;i<dev->_pages;i++) {
